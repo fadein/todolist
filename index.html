@@ -1,0 +1,53 @@
+<html lang="en">
+	<head>
+		<script src="https://unpkg.com/vue@next"></script>
+		<title>Vue.js TODO list</title>
+		<meta charset="utf-8" />
+		<style>
+			li {
+				cursor: pointer;
+			}
+			.done {
+				text-decoration: line-through;
+				color: gray;
+			}
+
+			.todo {
+				font-weight: bold;
+			}
+		</style>
+		<!-- The defer attribute causes the script to be loaded *after* the DOM is all set up -->
+		<script defer="" type="text/javascript" src="script.js"></script>
+	</head>
+
+	<body>
+		<div id="app">
+			<h2>{{ title }}</h2>
+
+
+			<!-- conditional rendering -->
+			<div v-if="todos == ''">
+				<p>Fetching your TODO list from the cloud...</p>
+			</div>
+			<div v-else-if="incomplete == 0">
+				<h3>Congratulations</h3>
+				<p>You are all done!</p>
+				<p>Why don't you treat yourself to an Orange Dreamsicle?</p>
+			</div>
+			<div v-else>
+			<p>There are {{total}} task(s) in total</p>
+			<p>I've completed {{complete}} item{{plural(complete)}} and have {{incomplete}} item{{plural(incomplete)}} left to do.</p>
+				<ol>
+					<li v-for="item in todos"
+						:class="item.done ? 'done' : 'todo'"
+						@click="onclick(item)"
+						>
+						{{ item.text }}
+					</li>
+				</ol>
+			</div>
+
+		</div>
+
+	</body>
+</html>
